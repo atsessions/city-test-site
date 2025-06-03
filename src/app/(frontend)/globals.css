@@ -14,73 +14,75 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 40 30% 97%; /* A very light cream/off-white, adjust as needed */
+    --foreground: 25 35% 25%; /* Dark Brown for primary text (from "CITY OF") */
 
-    --card: 240 5% 96%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;       /* White or very light cream for card backgrounds */
+    --card-foreground: 25 35% 25%; /* Dark Brown for card text */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 35% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Color (from the Terracotta in the logo) */
+    --primary: 15 58% 48%;        /* Terracotta/Red-Brown */
+    --primary-foreground: 40 30% 97%; /* Cream/Off-White text on primary */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary Color (from the Teal/Aqua in the logo) */
+    --secondary: 190 50% 60%;      /* Teal/Aqua Blue */
+    --secondary-foreground: 20 50% 98%; /* White or very light text on secondary */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Tones */
+    --muted: 30 20% 92%; /* Lighter Gray/Cream for muted backgrounds */
+    --muted-foreground: 30 20% 45%; /* Medium Gray/Brown for muted text */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent Color (can be one of the logo colors, or a neutral) */
+    --accent: 190 45% 70%;         /* A slightly lighter Teal for accents */
+    --accent-foreground: 25 35% 20%; /* Dark Brown text on accent */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%; /* Keep a standard red for errors */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 80%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 20% 85%; /* Light Gray/Cream for borders */
+    --input: 0 0% 100%;  /* White for input backgrounds */
+    --ring: 15 58% 55%;   /* Terracotta for focus rings */
 
-    --radius: 0.2rem;
-
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    /* ... keep --radius, --success, --warning, --error or adjust as needed ... */
+    --radius: 0.3rem; /* example, can adjust */
+    --success: 140 60% 45%;
+    --warning: 40 90% 55%;
+    --error: 0 70% 60%;
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --background: 30 10% 15%; /* Dark Brown/Gray */
+    --foreground: 30 20% 88%; /* Light Cream/Gray for text */
 
-    --card: 0 0% 4%;
-    --card-foreground: 210 40% 98%;
+    --card: 30 10% 20%;       /* Slightly lighter Dark Brown/Gray for cards */
+    --card-foreground: 30 20% 88%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 30 10% 12%;
+    --popover-foreground: 30 20% 88%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Primary (Terracotta - perhaps slightly desaturated or lighter for dark mode) */
+    --primary: 15 50% 55%;
+    --primary-foreground: 30 30% 95%; /* Light Cream text */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary (Teal - perhaps slightly desaturated or lighter for dark mode) */
+    --secondary: 190 45% 50%;
+    --secondary-foreground: 20 30% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 30 10% 25%;
+    --muted-foreground: 30 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 190 40% 55%;
+    --accent-foreground: 20 25% 92%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 0, 0%, 15%, 0.8;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+    --border: 30 10% 35%;
+    --input: 30 10% 22%;
+    --ring: 15 55% 60%; /* Terracotta for focus rings */
   }
 }
 
