@@ -3,10 +3,18 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { MenuIcon, XIcon, ChevronDownIcon, SearchIcon } from 'lucide-react'
+import type { Header } from '@/payload-types'
 
-export const HeaderNav: React.FC = () => {
+interface HeaderNavProps {
+  data: Header
+}
+
+export const HeaderNav: React.FC<HeaderNavProps> = ({ data }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+
+  // You can use the data from Payload CMS if needed
+  // For now, we'll use the hardcoded navigation
 
   const navigation = [
     {

@@ -2,8 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import { PhoneIcon } from 'lucide-react'
 import { HeaderNav } from './Nav'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { Header } from '@/payload-types'
 
-export const HeaderComponent: React.FC = () => {
+export async function HeaderComponent() {
+  const header: Header = await getCachedGlobal('header', 1)()
+
   return (
     <>
       {/* Top Bar */}
@@ -48,7 +52,7 @@ export const HeaderComponent: React.FC = () => {
             </Link>
 
             {/* Navigation */}
-            <HeaderNav />
+            <HeaderNav data={header} />
           </div>
         </div>
       </header>

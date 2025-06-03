@@ -1,8 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import { FacebookIcon, TwitterIcon, YoutubeIcon, MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { Footer } from '@/payload-types'
 
-export const FooterComponent: React.FC = () => {
+export async function FooterComponent() {
+  const footer: Footer = await getCachedGlobal('footer', 1)()
+  
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer Content */}
