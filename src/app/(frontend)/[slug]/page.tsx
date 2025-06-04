@@ -139,7 +139,7 @@ export default async function Page({ params: paramsPromise }: Args) {
                     </h3>
                     <p className="text-gray-600 mb-4 line-clamp-3">
                       {announcement.content && typeof announcement.content === 'object' && 
-                        announcement.content.root?.children?.[0]?.children?.[0]?.text || 
+                        ((announcement.content.root as { children: any[] }).children?.[0]?.children?.[0]?.text) || 
                         'Click to read more...'}
                     </p>
                     <div className="flex items-center justify-between">
