@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     announcements: Announcement;
+    departments: Department;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
+    departments: DepartmentsSelect<false> | DepartmentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -766,6 +768,111 @@ export interface Announcement {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments".
+ */
+export interface Department {
+  id: number;
+  /**
+   * e.g., Parks & Recreation, Public Works
+   */
+  name: string;
+  /**
+   * URL-friendly version (e.g., parks-recreation)
+   */
+  slug: string;
+  /**
+   * Description that appears at the top of the department page - you can format text, add bullet points, etc.
+   */
+  overview?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Add department staff in the order you want them displayed
+   */
+  contacts?:
+    | {
+        name: string;
+        title: string;
+        email?: string | null;
+        /**
+         * Format: (555) 123-4567
+         */
+        phone?: string | null;
+        photo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  officeInfo?: {
+    /**
+     * If different from City Hall
+     */
+    address?: string | null;
+    hours?: string | null;
+    mainPhone?: string | null;
+    fax?: string | null;
+  };
+  /**
+   * Common forms, applications, or resources
+   */
+  quickLinks?:
+    | {
+        label: string;
+        url: string;
+        newTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  services?:
+    | {
+        title: string;
+        description?: string | null;
+        /**
+         * Optional link to more information
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Main content area for department-specific information
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Hero image for the department page
+   */
+  featuredImage?: (number | null) | Media;
+  status?: ('published' | 'draft') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -960,6 +1067,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'announcements';
         value: number | Announcement;
+      } | null)
+    | ({
+        relationTo: 'departments';
+        value: number | Department;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1328,6 +1439,54 @@ export interface AnnouncementsSelect<T extends boolean = true> {
   featuredImage?: T;
   publishedAt?: T;
   priority?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments_select".
+ */
+export interface DepartmentsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  overview?: T;
+  contacts?:
+    | T
+    | {
+        name?: T;
+        title?: T;
+        email?: T;
+        phone?: T;
+        photo?: T;
+        id?: T;
+      };
+  officeInfo?:
+    | T
+    | {
+        address?: T;
+        hours?: T;
+        mainPhone?: T;
+        fax?: T;
+      };
+  quickLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        newTab?: T;
+        id?: T;
+      };
+  services?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?: T;
+        id?: T;
+      };
+  content?: T;
+  featuredImage?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;

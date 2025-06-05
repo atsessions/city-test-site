@@ -316,10 +316,12 @@ export default async function Page({ params: paramsPromise }: Args) {
         </section>
       )}
 
-      {/* Regular page content */}
-      <div className="container mx-auto px-4 py-8">
-        <RenderBlocks blocks={page.layout} />
-      </div>
+      {/* Regular page content - only show on non-homepage */}
+      {slug !== 'home' && (
+        <div className="container mx-auto px-4 py-8">
+          <RenderBlocks blocks={page.layout} />
+        </div>
+      )}
     </article>
   )
 }

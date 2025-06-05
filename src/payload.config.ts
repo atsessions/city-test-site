@@ -17,6 +17,7 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Announcements } from './collections/Announcements'
+import { Departments } from './collections/Departments'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -72,6 +73,7 @@ export default buildConfig({
     Categories, 
     Users,
     Announcements,
+    Departments,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],

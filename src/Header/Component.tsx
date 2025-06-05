@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { PhoneIcon } from 'lucide-react'
 import { HeaderNav } from './Nav'
 import { getCachedGlobal } from '@/utilities/getGlobals'
@@ -40,14 +41,16 @@ export async function HeaderComponent() {
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
-            {/* Logo/City Name */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">C</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">City of Example</h1>
-                <p className="text-xs text-gray-600">Serving Our Community Since 1850</p>
+            {/* Logo Only */}
+            <Link href="/" className="flex items-center">
+              <div className="relative w-40 h-14">
+                <Image
+                  src="/assets/city-of-page-logo.png"
+                  alt="City of Page"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
             </Link>
 
