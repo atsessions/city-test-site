@@ -1,9 +1,5 @@
-import type { Metadata } from 'next'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,52 +8,33 @@ import RichText from '@/components/RichText'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateStaticParams() {
+export default async function DepartmentPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  
   const payload = await getPayload({ config: configPromise })
-  const departments = await payload.find({
+  
+  const { docs } = await payload.find({
     collection: 'departments',
-    draft: false,
-    limit: 1000,
     where: {
-      status: {
-        equals: 'published',
+      slug: {
+        equals: slug,
       },
     },
+    limit: 1,
   })
 
-  return departments.docs?.map(({ slug }) => ({ slug })) || []
-}
-
-type Args = {
-  params: Promise<{
-    slug: string
-  }>
-}
-
-export default async function DepartmentPage({ params: paramsPromise }: Args) {
-  const { slug } = await paramsPromise
-  
-  console.log('=== Department Page Debug ===')
-  console.log('Requested slug:', slug)
-  
-  const department = await queryDepartmentBySlug({ slug })
-  
-  console.log('Department found:', department ? 'Yes' : 'No')
-  if (department) {
-    console.log('Department name:', department.name)
-    console.log('Department slug:', department.slug)
-    console.log('Department status:', department.status)
-  }
+  const department = docs[0]
 
   if (!department) {
-    console.log('No department found, showing 404')
     return notFound()
   }
 
   return (
     <article>
-      <PayloadRedirects url={`/departments/${slug}`} />
-
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white">
         {department.featuredImage && typeof department.featuredImage === 'object' && 'url' in department.featuredImage && (
@@ -67,6 +44,7 @@ export default async function DepartmentPage({ params: paramsPromise }: Args) {
               alt={('alt' in department.featuredImage && department.featuredImage.alt) || department.name}
               fill
               className="object-cover opacity-30"
+              sizes="100vw"
             />
           </div>
         )}
@@ -137,6 +115,7 @@ export default async function DepartmentPage({ params: paramsPromise }: Args) {
                             alt={('alt' in contact.photo && contact.photo.alt) || contact.name}
                             fill
                             className="object-cover rounded-full"
+                            sizes="80px"
                           />
                         </div>
                       )}
@@ -248,74 +227,33 @@ export default async function DepartmentPage({ params: paramsPromise }: Args) {
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug } = await paramsPromise
-  const department = await queryDepartmentBySlug({ slug })
-
-  if (!department) {
-    return {}
-  }
-
-  const description = department.overview 
-    ? extractTextFromRichText(department.overview).substring(0, 160) 
-    : `Information about the ${department.name} department`
-
-  return {
-    title: `${department.name} | City of Page`,
-    description,
-  }
-}
-
-// Helper function to extract text from rich text
-function extractTextFromRichText(richText: any): string {
-  try {
-    if (!richText?.root?.children?.length) return ''
-    
-    let text = ''
-    const extractText = (nodes: any[]): void => {
-      nodes.forEach((node: any) => {
-        if (node.text) {
-          text += node.text
-        } else if (node.children?.length) {
-          extractText(node.children)
-        }
-      })
-    }
-    
-    extractText(richText.root.children)
-    return text
-  } catch {
-    return ''
-  }
-}
-
-const queryDepartmentBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  
   const payload = await getPayload({ config: configPromise })
   
-  // First, let's see what departments exist
-  console.log('=== Checking all departments ===')
-  const allDepts = await payload.find({
+  const { docs } = await payload.find({
     collection: 'departments',
-    limit: 100,
-  })
-  
-  console.log('Total departments in database:', allDepts.docs.length)
-  allDepts.docs.forEach(dept => {
-    console.log(`- ${dept.name} (slug: ${dept.slug}, status: ${dept.status})`)
-  })
-
-  const result = await payload.find({
-    collection: 'departments',
-    draft,
-    limit: 1,
     where: {
       slug: {
         equals: slug,
       },
     },
+    limit: 1,
   })
 
-  return result.docs?.[0] || null
-})
+  const department = docs[0]
+
+  if (!department) {
+    return {}
+  }
+
+  return {
+    title: `${department.name} | City of Page`,
+    description: department.overview ? 'Department information' : `Information about the ${department.name} department`,
+  }
+}
