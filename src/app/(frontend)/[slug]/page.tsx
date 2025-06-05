@@ -44,11 +44,11 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   const url = '/' + slug
 
-  let page, announcements
-
-  page = await queryPageBySlug({
+  const page = await queryPageBySlug({
     slug,
   })
+
+  let announcements
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -245,7 +245,7 @@ export default async function Page({ params: paramsPromise }: Args) {
                 <h3 className="text-xl font-bold text-gray-900 mb-6">Quick Links</h3>
                 <ul className="space-y-3">
                   <li><Link href="/government/city-council" className="text-blue-700 hover:text-blue-800">City Council</Link></li>
-                  <li><Link href="/government/mayor" className="text-blue-700 hover:text-blue-800">Mayor's Office</Link></li>
+                  <li><Link href="/government/mayor" className="text-blue-700 hover:text-blue-800">Mayor&apos;s Office</Link></li>
                   <li><Link href="/documents/city-budget" className="text-blue-700 hover:text-blue-800">City Budget</Link></li>
                   <li><Link href="/bids-rfps" className="text-blue-700 hover:text-blue-800">Bids & RFPs</Link></li>
                   <li><Link href="/employment" className="text-blue-700 hover:text-blue-800">Employment Opportunities</Link></li>
