@@ -1,3 +1,4 @@
+// src/app/(frontend)/departments/[slug]/page.tsx
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
@@ -57,13 +58,20 @@ export default async function DepartmentPage({
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Department Overview */}
+            {/* Department Overview - Handle both string and rich text */}
             {department.overview && (
-              <section className="mb-12 prose prose-lg max-w-none">
-                <RichText data={department.overview} />
+              <section className="mb-12">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">About This Department</h2>
+                <div className="prose prose-lg max-w-none">
+                  {typeof department.overview === 'string' ? (
+                    <p className="text-gray-600 whitespace-pre-line">{department.overview}</p>
+                  ) : (
+                    <RichText data={department.overview} />
+                  )}
+                </div>
               </section>
             )}
-
+            
             {/* Services Section */}
             {department.services && Array.isArray(department.services) && department.services.length > 0 && (
               <section className="mb-12">
@@ -75,7 +83,7 @@ export default async function DepartmentPage({
                         {service.title}
                       </h3>
                       {service.description && (
-                        <p className="text-gray-600 mb-2">{service.description}</p>
+                        <p className="text-gray-600 mb-2 whitespace-pre-line">{service.description}</p>
                       )}
                       {service.link && (
                         <Link 
@@ -91,10 +99,17 @@ export default async function DepartmentPage({
               </section>
             )}
 
-            {/* Additional Content */}
+            {/* Additional Content - Handle both string and rich text */}
             {department.content && (
-              <section className="prose prose-lg max-w-none">
-                <RichText data={department.content} />
+              <section className="mb-12">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Additional Information</h2>
+                <div className="prose prose-lg max-w-none">
+                  {typeof department.content === 'string' ? (
+                    <p className="text-gray-600 whitespace-pre-line">{department.content}</p>
+                  ) : (
+                    <RichText data={department.content} />
+                  )}
+                </div>
               </section>
             )}
           </div>

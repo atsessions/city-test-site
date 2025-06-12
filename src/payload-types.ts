@@ -781,7 +781,7 @@ export interface Department {
    */
   slug: string;
   /**
-   * Description that appears at the top of the department page - you can format text, add bullet points, etc.
+   * Description that appears at the top of the department page. You can use line breaks and basic formatting.
    */
   overview?: {
     root: {
@@ -816,7 +816,7 @@ export interface Department {
     | null;
   officeInfo?: {
     /**
-     * If different from City Hall
+     * If different from City Hall. Use line breaks for formatting.
      */
     address?: string | null;
     hours?: string | null;
@@ -829,6 +829,10 @@ export interface Department {
   quickLinks?:
     | {
         label: string;
+        /**
+         * Short description of what this link provides
+         */
+        description?: string | null;
         url: string;
         newTab?: boolean | null;
         id?: string | null;
@@ -839,6 +843,14 @@ export interface Department {
         title: string;
         description?: string | null;
         /**
+         * What users need to know or bring for this service
+         */
+        requirements?: string | null;
+        /**
+         * Cost information for this service
+         */
+        fees?: string | null;
+        /**
          * Optional link to more information
          */
         link?: string | null;
@@ -848,21 +860,7 @@ export interface Department {
   /**
    * Main content area for department-specific information
    */
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  content?: string | null;
   /**
    * Hero image for the department page
    */
@@ -1473,6 +1471,7 @@ export interface DepartmentsSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        description?: T;
         url?: T;
         newTab?: T;
         id?: T;
@@ -1482,6 +1481,8 @@ export interface DepartmentsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        requirements?: T;
+        fees?: T;
         link?: T;
         id?: T;
       };

@@ -14,7 +14,11 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
+import { 
+  lexicalEditor, 
+  FixedToolbarFeature, 
+  InlineToolbarFeature // optional if you want both
+} from '@payloadcms/richtext-lexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Announcements } from './collections/Announcements'
 import { Departments } from './collections/Departments'
@@ -28,9 +32,6 @@ export default buildConfig({
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -60,7 +61,13 @@ export default buildConfig({
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
-  editor: defaultLexical,
+  editor: lexicalEditor({
+  features: ({ defaultFeatures }) => [
+    ...defaultFeatures,
+    FixedToolbarFeature(),       // ✅ enables the always-visible toolbar
+    // InlineToolbarFeature(),   // optional: to keep the inline (highlight) toolbar
+  ],
+}),
   db: sqliteAdapter({
     client: {
       url: process.env.DATABASE_URI || '',

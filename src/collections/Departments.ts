@@ -1,3 +1,4 @@
+// src/collections/Departments.ts
 import type { CollectionConfig } from 'payload'
 
 export const Departments: CollectionConfig = {
@@ -51,7 +52,7 @@ export const Departments: CollectionConfig = {
       type: 'richText',
       label: 'Department Overview',
       admin: {
-        description: 'Description that appears at the top of the department page - you can format text, add bullet points, etc.',
+        description: 'Description that appears at the top of the department page. You can use line breaks and basic formatting.',
       },
     },
     {
@@ -109,7 +110,8 @@ export const Departments: CollectionConfig = {
           type: 'textarea',
           label: 'Physical Address',
           admin: {
-            description: 'If different from City Hall',
+            description: 'If different from City Hall. Use line breaks for formatting.',
+            rows: 3,
           },
         },
         {
@@ -117,6 +119,9 @@ export const Departments: CollectionConfig = {
           type: 'textarea',
           label: 'Office Hours',
           defaultValue: 'Monday - Friday\n8:00 AM - 5:00 PM',
+          admin: {
+            rows: 4,
+          },
         },
         {
           name: 'mainPhone',
@@ -143,6 +148,14 @@ export const Departments: CollectionConfig = {
           name: 'label',
           type: 'text',
           required: true,
+        },
+        {
+          name: 'description',
+          type: 'text',
+          label: 'Description (Optional)',
+          admin: {
+            description: 'Short description of what this link provides',
+          },
         },
         {
           name: 'url',
@@ -179,11 +192,31 @@ export const Departments: CollectionConfig = {
           name: 'description',
           type: 'textarea',
           label: 'Service Description',
+          admin: {
+            rows: 4,
+          },
+        },
+        {
+          name: 'requirements',
+          type: 'textarea',
+          label: 'Requirements (Optional)',
+          admin: {
+            description: 'What users need to know or bring for this service',
+            rows: 3,
+          },
+        },
+        {
+          name: 'fees',
+          type: 'text',
+          label: 'Fees (Optional)',
+          admin: {
+            description: 'Cost information for this service',
+          },
         },
         {
           name: 'link',
           type: 'text',
-          label: 'Learn More Link',
+          label: 'Learn More Link (Optional)',
           admin: {
             description: 'Optional link to more information',
           },
@@ -192,10 +225,11 @@ export const Departments: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'richText',
+      type: 'textarea',
       label: 'Additional Content',
       admin: {
         description: 'Main content area for department-specific information',
+        rows: 10,
       },
     },
     {
